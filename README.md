@@ -1,6 +1,10 @@
 # 10s GIF Helper
 This script takes an input MP4 video file of any length and speeds it up into a 10-second GIF. If an output filename is not specified, it defaults to `output.gif`.
 
+## Requirements
+
+    sudo apt-get install ffmpeg 
+
 ## Usage
 
 ```bash
