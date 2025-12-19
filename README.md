@@ -8,11 +8,14 @@ This script takes an input MP4 video file of any length and speeds it up into a 
 ## Usage
 
 ```bash
-./10s_gif.sh <input.mp4> [output.gif]
+./10s_gif.sh <input.mp4> [-o output.gif] [-l length]
 ```
 
 ## Example
 
 ```bash
-./10s_gif.sh example.mp4 example.gif
+./10s_gif.sh myvideo.mp4
+./10s_gif.sh myvideo.mp4 -o myclip.gif
+./10s_gif.sh myvideo.mp4 -l 20
+./10s_gif.sh myvideo.mp4 -o myclip.gif -l 15
 ```
