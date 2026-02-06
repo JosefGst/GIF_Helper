@@ -16,7 +16,7 @@ if [ -z "$1" ]; then
 fi
 
 input_mp4="$1"
-output_gif="output.gif"
+output_gif="${input_mp4%.mp4}.gif"
 desired_video_length=10  # in seconds
 
 shift  # Move to next argument for getopts
