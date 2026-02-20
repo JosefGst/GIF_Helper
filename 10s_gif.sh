@@ -33,4 +33,11 @@ done
 mp4_length=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$input_mp4")
 
 # Convert to GIF with the desired length
-ffmpeg -i "$input_mp4" -vf "setpts=$desired_video_length/$mp4_length*PTS,fps=10,scale=480:-1:flags=lanczos" -gifflags +transdiff -y "$output_gif"
+# ffmpeg -i "$input_mp4" -vf "setpts=$desired_video_length/$mp4_length*PTS,fps=10,scale=480:-1:flags=lanczos" -gifflags +transdiff -y "$output_gif"
+
+ffmpeg -i "$input_mp4" -filter_complex \
+"[0:v]setpts=$desired_video_length/$mp4_length*PTS,fps=4,scale=320:-1:flags=lanczos,split[a][b];[a]palettegen[p];[b][p]paletteuse" \
+-gifflags +transdiff -y "$output_gif"
+
+# Optimize the GIF using gifsicle
+gifsicle -O3 --lossy=100 "$output_gif" -o "$output_gif"

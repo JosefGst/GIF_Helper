@@ -3,7 +3,7 @@ This script takes an input MP4 video file of any length and speeds it up into a 
 
 ## Requirements
 
-    sudo apt-get install ffmpeg 
+    sudo apt-get install ffmpeg gifsicle
 
 ## Usage
 
