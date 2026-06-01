@@ -8,8 +8,14 @@ This script takes an input MP4 video file of any length and speeds it up into a 
 ## Usage
 
 ```bash
-./10s_gif.sh <input.mp4> [-o output.gif] [-l length]
+./10s_gif.sh <input.mp4> [-o output.gif] [-l length] [-s scale]
 ```
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-o output.gif` | Output GIF filename | `<input>.gif` |
+| `-l length` | Desired GIF length in seconds | `10` |
+| `-s scale` | Output GIF width in pixels | `320` |
 
 ## Example
 
@@ -17,7 +23,8 @@ This script takes an input MP4 video file of any length and speeds it up into a 
 ./10s_gif.sh myvideo.mp4
 ./10s_gif.sh myvideo.mp4 -o myclip.gif
 ./10s_gif.sh myvideo.mp4 -l 20
-./10s_gif.sh myvideo.mp4 -o myclip.gif -l 15
+./10s_gif.sh myvideo.mp4 -s 480
+./10s_gif.sh myvideo.mp4 -o myclip.gif -l 15 -s 640
 # Apply to all MP4 files in the current directory
-for f in *.mp4; do 10s_gif.sh "$f" -o "${f%.mp4}.gif"; done
+for f in *.mp4; do 10s_gif.sh "$f" -o "${f%.mp4}.gif" -s 480; done
 ```

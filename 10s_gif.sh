@@ -7,6 +7,7 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
 		echo -e "\nTakes an <input.mp4> and converts it to a GIF."
 		echo "-o output.gif   Specify output GIF file (default: output.gif)"
 		echo "-l length       Desired GIF length in seconds (default: 10)"
+		echo "-s scale        Desired GIF width in pixels (default: 320)"
 		exit 0
 fi
 
@@ -18,13 +19,15 @@ fi
 input_mp4="$1"
 output_gif="${input_mp4%.mp4}.gif"
 desired_video_length=10  # in seconds
+scale=320
 
 shift  # Move to next argument for getopts
 
-while getopts "o:l:" opt; do
+while getopts "o:l:s:" opt; do
 	case $opt in
 		o) output_gif="$OPTARG" ;;
 		l) desired_video_length="$OPTARG" ;;
+		s) scale="$OPTARG" ;;
 		*) echo "Usage: $0 <input.mp4> [-o output.gif] [-l length]"; exit 1 ;;
 	esac
 done
@@ -36,7 +39,7 @@ mp4_length=$(ffprobe -v error -show_entries format=duration -of default=noprint_
 # ffmpeg -i "$input_mp4" -vf "setpts=$desired_video_length/$mp4_length*PTS,fps=10,scale=480:-1:flags=lanczos" -gifflags +transdiff -y "$output_gif"
 
 ffmpeg -i "$input_mp4" -filter_complex \
-"[0:v]setpts=$desired_video_length/$mp4_length*PTS,fps=4,scale=320:-1:flags=lanczos,split[a][b];[a]palettegen[p];[b][p]paletteuse" \
+"[0:v]setpts=$desired_video_length/$mp4_length*PTS,fps=4,scale=$scale:-1:flags=lanczos,split[a][b];[a]palettegen[p];[b][p]paletteuse" \
 -gifflags +transdiff -y "$output_gif"
 
 # Optimize the GIF using gifsicle
